@@ -1,0 +1,135 @@
+:root {
+    --bg-cream: #F8F3EA;
+    --deep-plum: #570228;
+    --soft-pink: #FFDBD1;
+    --text-dark: #222222;
+}
+
+body {
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    font-family: 'Helvetica Neue', sans-serif;
+    padding-bottom: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 8%;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--deep-plum);
+}
+
+/* Dynamic Flex Grid */
+.collection-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 5%;
+}
+
+.product-card {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+/* Alternate layouts automatically for an editorial lookLook */
+.product-card:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.image-frame {
+    flex: 1.2;
+    height: 70vh;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: var(--soft-pink);
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-frame:hover .product-img {
+    transform: scale(1.04);
+}
+
+.product-info {
+    flex: 0.8;
+}
+
+.collection-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--deep-plum);
+    font-weight: 600;
+}
+
+.product-title {
+    font-size: 36px;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.price {
+    font-size: 18px;
+    color: var(--deep-plum);
+    margin-bottom: 30px;
+}
+
+/* Luxury Clickable Pop-Out Button Styling */
+.premium-btn {
+    position: relative;
+    background-color: transparent;
+    border: 1px solid var(--deep-plum);
+    color: var(--deep-plum);
+    padding: 18px 35px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 4px;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 3;
+    pointer-events: none; /* Stops text from blocking mouse vectors */
+}
+
+.btn-fill {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--deep-plum);
+    z-index: 1;
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-btn:hover {
+    color: #FFFFFF;
+}
+
+.premium-btn:hover .btn-fill {
+    top: 0; /* Smooth liquid fill upwards */
+}
+
+/* Subtle click feedback downscale push */
+.premium-btn:active {
+    transform: scale(0.96) !important;
+}
