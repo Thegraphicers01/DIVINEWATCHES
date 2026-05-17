@@ -3,41 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Zari Couture</title>
+    <title>AR BURQA & ABAYA HOUSE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">AL-ZARI</div>
-        <div class="nav-links">
-            <a href="#">BURQAS</a>
-            <a href="#">ABAYAS</a>
-            <a href="#">COLLECTIONS</a>
-        </div>
-    </nav>
+    <header class="main-header">
+        <div class="brand-logo">AR BURQA & ABAYA HOUSE</div>
+        <nav class="navigation-tabs">
+            <button class="tab-link active" onclick="switchTab('home-section')">HOME</button>
+            <button class="tab-link" onclick="switchTab('collections-section')">COLLECTIONS</button>
+            <button class="tab-link" onclick="switchTab('cart-section')">CART (<span id="cart-count">0</span>)</button>
+            <button class="tab-link" onclick="switchTab('contact-section')">CONTACT US</button>
+        </nav>
+    </header>
 
-    <main class="collection-grid">
-        {% for product in products %}
-        <div class="product-card">
-            <div class="image-frame">
-                <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
+    <section id="home-section" class="tab-content active-content">
+        <div class="hero-wrapper">
+            <div class="color-wave-bg">
+                <div class="fluid-wave plum-wave"></div>
+                <div class="fluid-wave pink-wave"></div>
+                <div class="fluid-wave cream-wave"></div>
             </div>
 
-            <div class="product-info">
-                <span class="collection-tag">{{ product.tag }}</span>
-                <h2 class="product-title">{{ product.title }}</h2>
-                <p class="price">{{ product.price }}</p>
-
-                <button class="premium-btn magnetic-btn" onclick="alert('Added {{ product.title }} to Bag!')">
-                    <span class="btn-text">ADD TO BAG</span>
-                    <div class="btn-fill"></div>
-                </button>
+            <div class="split-hero-container">
+                <div class="left-photo-column">
+                    <div class="square-rounded-frame animate-slide-up">
+                        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?q=80&w=800" alt="Featured Abaya Lookbook" class="hero-display-img">
+                    </div>
+                </div>
+                
+                <div class="right-details-column animate-text-fade">
+                    <span class="sub-tag">SEASONAL EXCLUSIVE</span>
+                    <h1 class="hero-title">MODERN BLENDS,<br>PURE TRADITION.</h1>
+                    <p class="hero-text">Experience premium drapes, lightweight luxury breathable fabrics, and couture finishings tailored uniquely for your daily elegance.</p>
+                    
+                    <button class="action-btn magnetic-element" onclick="addToCart('Royal Velvet Abaya')">
+                        <span class="btn-text">ADD TO CART</span>
+                        <div class="liquid-fill"></div>
+                    </button>
+                </div>
             </div>
         </div>
-        {% endfor %}
-    </main>
+    </section>
+
+    <section id="collections-section" class="tab-content">
+        <div class="section-padding">
+            <h2 class="class-headline">PREMIUM ABAYAS</h2>
+            <div class="category-grid">
+                {% for item in catalog.premium_abayas %}
+                <div class="collection-card animate-scroll">
+                    <div class="card-image-box">
+                        <img src="{{ item.img }}" alt="{{ item.name }}">
+                    </div>
+                    <h3>{{ item.name }}</h3>
+                    <p class="card-price">{{ item.price }}</p>
+                    <button class="mini-card-btn magnetic-element" onclick="addToCart('{{ item.name }}')">ADD TO CART</button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h2 class="class-headline" style="margin-top: 80px;">LUXURY BURQAS</h2>
+            <div class="category-grid">
+                {% for item in catalog.luxury_burqas %}
+                <div class="collection-card animate-scroll">
+                    <div class="card-image-box">
+                        <img src="{{ item.img }}" alt="{{ item.name }}">
+                    </div>
+                    <h3>{{ item.name }}</h3>
+                    <p class="card-price">{{ item.price }}</p>
+                    <button class="mini-card-btn magnetic-element" onclick="addToCart('{{ item.name }}')">ADD TO CART</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="cart-section" class="tab-content">
+        <div class="section-padding empty-state">
+            <h2 class="class-headline">YOUR SHOPPING BAG</h2>
+            <p id="cart-status-text">Your cart is currently empty. Items you add will appear here securely.</p>
+        </div>
+    </section>
+
+    <section id="contact-section" class="tab-content">
+        <div class="section-padding contact-wrapper">
+            <h2 class="class-headline">VISIT OUR HOUSE</h2>
+            <p>AR BURQA & ABAYA HOUSE</p>
+            <p class="contact-details">Premium Wholesale & Retail Fabric Hub<br>Email: contact@arhouse.com</p>
+        </div>
+    </section>
+
+    <div id="toast-notification" class="toast-popup">Item added to cart</div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
