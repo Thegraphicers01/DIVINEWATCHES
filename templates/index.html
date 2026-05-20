@@ -7,272 +7,80 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    :root {
-      --variable-collection-burgundy: rgba(87, 2, 40, 1);
-      --variable-collection-deep-blue: rgba(6, 18, 33, 1);
-      --variable-collection-glass-blue: rgba(221, 232, 237, 1);
-      --variable-collection-LIGHT-CREAM: rgba(255, 219, 209, 1);
-      --variable-collection-light-pink: rgba(250, 158, 188, 1);
-      --variable-collection-OFF-WHITE: rgba(248, 243, 234, 1);
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #020813;
-      color: #ffffff;
-    }
-
-    .font-serif-premium {
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* Custom Figma Radial Backdrops */
-    .bg-radial-stealth { background: radial-gradient(circle at center, #0a192f 0%, #020813 100%); }
-    .bg-radial-alpinist { background: radial-gradient(circle at center, #1b2d3c 0%, #091118 100%); }
-    .bg-radial-heritage { background: radial-gradient(circle at center, #111625 0%, #05070b 100%); }
-
-    /* Animation CSS Keyframes provided from your extraction */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: none; }
-    }
-    .animate-fade-in { animation: fadeIn 0.6s ease forwards; }
-  </style>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brandBlue: '#061221',
-            glassBlue: '#DDE8ED',
-          }
-        }
-      }
-    }
-  </script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="overflow-x-hidden">
+<body class="bg-[#020813] overflow-x-hidden">
 
-  <nav class="fixed top-0 left-0 w-full z-40 bg-[#020813]/80 backdrop-blur-md border-b border-white/5 px-8 py-4 flex justify-between items-center">
-    <div class="text-xl font-bold tracking-[4px] cursor-pointer" onclick="switchPage('home')">
-      DIVINE WATCHES
-    </div>
-    <div class="flex gap-8 text-xs tracking-widest text-white/60">
-      <button onclick="switchPage('home')" class="hover:text-white transition-colors uppercase">Collections</button>
-      <button onclick="scrollToContact()" class="hover:text-white transition-colors uppercase">Contact Us</button>
-    </div>
-    <button onclick="toggleCart(true)" class="relative p-2 hover:text-white/80 transition-colors text-xs tracking-widest uppercase">
-      BAG (<span id="cart-count">0</span>)
-    </button>
-  </nav>
+  <div id="root"></div>
 
-  <div id="page-home" class="pt-24 animate-fade-in block">
-    <div class="relative w-full h-[35vh] flex items-center justify-center bg-brandBlue overflow-hidden border-b border-white/5">
-      <h1 class="opacity-10 font-bold text-glassBlue text-5xl md:text-8xl tracking-[12px] select-none text-center font-serif-premium">
-        DIVINE WATCHES
-      </h1>
-    </div>
+  <script type="text/babel">
+    const HeaderState = () => {
+      const panels = [
+        { className: "top-0 left-[-166px] w-[699px] h-[900px] absolute bg-[#061221]", "aria-hidden": true },
+        { className: "-top-px left-[803px] w-[741px] h-[927px] absolute bg-[#061221]", "aria-hidden": true }
+      ];
 
-    <section class="max-w-[1440px] mx-auto px-8 py-20">
-      <div class="mb-12">
-        <span class="text-xs tracking-[4px] text-white/40 block mb-2">CURATED RELEASES</span>
-        <h2 class="text-3xl font-light tracking-[2px] font-serif-premium">THE 2026 CHRONO LINEUP</h2>
-      </div>
+      const scrollToContact = (e) => {
+        e.preventDefault();
+        document.getElementById('contact-target-section')?.scrollIntoView({ behavior: 'smooth' });
+      };
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div onclick="switchPage('stealth')" class="bg-white/[0.02] border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer group">
-          <div class="w-full h-64 bg-black/20 rounded-xl mb-6 flex items-center justify-center border border-white/5">
-            <span class="text-white/20 group-hover:scale-105 transition-transform duration-300 text-xs tracking-widest">[ CASIO STEALTH IMAGE ]</span>
-          </div>
-          <span class="text-[10px] tracking-[2px] text-white/40 block mb-1 uppercase">PROSPEX TACTICAL // TYPE 01</span>
-          <h3 class="text-lg font-semibold tracking-wide mb-2">CHRONO TACTICAL</h3>
-          <p class="text-xs text-white/50 mb-4 line-clamp-1">STEALTH SERIES. ELITE BLACKOUT.</p>
-          <span class="text-sm font-bold tracking-wider">$249</span>
+      return (
+        <div className="text-white min-h-screen selection:bg-white/20">
+          
+          {/* FIGMA CORE NAVIGATION HEADER PANEL */}
+          <main className="bg-white overflow-hidden w-full min-w-[1440px] min-h-[900px] relative mx-auto">
+            <section aria-label="Divine Watches header background" className="relative w-full min-h-[900px]">
+              {panels.map((panel, index) => (
+                <div key={index} aria-hidden={panel["aria-hidden"]} className={panel.className} />
+              ))}
+
+              <h1 className="absolute top-[calc(50.00%_-_76px)] left-[calc(50.00%_-_345px)] h-[86px] flex items-center justify-center opacity-10 font-bold text-[64px] text-center tracking-[4px] whitespace-nowrap text-white">
+                DIVINE WATCHES
+              </h1>
+            </section>
+          </main>
+
+          {/* ADDED CONTACT INTERFACE */}
+          <section id="contact-target-section" className="w-full bg-[#061221] border-t border-white/10 py-24 px-8 relative z-10">
+            <div className="max-w-xl mx-auto text-center">
+              <h2 class="text-3xl font-light tracking-[3px] uppercase mb-4 text-white">CONNECT WITH THE LAB</h2>
+              <p className="text-sm text-white/60 tracking-wide mb-8 leading-relaxed">
+                Subscribe for exclusive priority access to upcoming limited edition drops and tactical engineering insights.
+              </p>
+              <form onSubmit={(e) => { e.preventDefault(); alert('Transmission Received.'); }} className="flex flex-col sm:flex-row gap-3 items-center justify-center">
+                <input type="email" required placeholder="ENTER YOUR EMAIL..." className="w-full sm:max-w-xs px-5 py-3 border border-white/20 bg-transparent text-xs tracking-wider text-white uppercase outline-none focus:border-white/60" />
+                <button type="submit" className="w-full sm:w-auto px-8 py-3 bg-white text-[#061221] font-bold text-xs tracking-widest uppercase border border-white hover:bg-transparent hover:text-white transition-all duration-300 active:scale-95">SUBMIT →</button>
+              </form>
+            </div>
+          </section>
+
+          {/* ADDED FOOTER */}
+          <footer className="w-full bg-[#020813] border-t border-white/5 py-12 px-8 relative z-10">
+            <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+              <div>
+                <div className="text-xs tracking-[6px] font-bold text-white/80 mb-2 uppercase">DIVINE WATCHES // LABS</div>
+                <p className="text-[10px] text-white/40 tracking-wider uppercase">© 2026 Chrono Labs. All structural properties reserved.</p>
+              </div>
+              <div className="flex flex-wrap gap-8 text-[10px] tracking-[2px] text-white/40 uppercase">
+                <a href="#contact" onClick={scrollToContact} className="hover:text-white transition-colors">CONTACT US</a>
+                <a href="#privacy" className="hover:text-white transition-colors">PRIVACY REGISTRY</a>
+                <a href="#terms" className="hover:text-white transition-colors">TERMS OF OPERATION</a>
+              </div>
+            </div>
+          </footer>
+
         </div>
+      );
+    };
 
-        <div onclick="switchPage('alpinist')" class="bg-white/[0.02] border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer group">
-          <div class="w-full h-64 bg-black/20 rounded-xl mb-6 flex items-center justify-center border border-white/5">
-            <span class="text-white/20 group-hover:scale-105 transition-transform duration-300 text-xs tracking-widest">[ ALPINIST CHRONO IMAGE ]</span>
-          </div>
-          <span class="text-[10px] tracking-[2px] text-white/40 block mb-1 uppercase">PROSPEX EXPLORATION // TYPE 02</span>
-          <h3 class="text-lg font-semibold tracking-wide mb-2">ALPINIST CHRONO</h3>
-          <p class="text-xs text-white/50 mb-4 line-clamp-1">CONQUER THE SUMMIT. MASTER THE COLD.</p>
-          <span class="text-sm font-bold tracking-wider">$299</span>
-        </div>
-
-        <div onclick="switchPage('heritage')" class="bg-white/[0.02] border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer group">
-          <div class="w-full h-64 bg-black/20 rounded-xl mb-6 flex items-center justify-center border border-white/5">
-            <span class="text-white/20 group-hover:scale-105 transition-transform duration-300 text-xs tracking-widest">[ ROYAL HERITAGE IMAGE ]</span>
-          </div>
-          <span class="text-[10px] tracking-[2px] text-white/40 block mb-1 uppercase">MUSEUM LEGACY // TYPE 03</span>
-          <h3 class="text-lg font-semibold tracking-wide mb-2">ROYAL HERITAGE</h3>
-          <p class="text-xs text-white/50 mb-4 line-clamp-1">TIMELESS MAJESTY. CARVED IN TRADITION.</p>
-          <span class="text-sm font-bold tracking-wider">$349</span>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="page-stealth" class="min-h-screen flex items-center pt-24 px-8 md:px-[8%] bg-radial-stealth animate-fade-in hidden relative">
-    <button onclick="switchPage('home')" class="absolute top-28 left-8 md:left-[8%] text-xs tracking-[2px] text-white/50 hover:text-white transition-colors">← BACK TO COLLECTION</button>
-    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
-      <div class="flex justify-center w-full max-w-md aspect-square bg-black/20 rounded-3xl border border-white/5 items-center justify-self-center"><span class="text-white/30 text-xs tracking-widest">[ STEALTH PRO ASSET ]</span></div>
-      <div>
-        <span class="text-[10px] tracking-[4px] text-white/50 block mb-2 uppercase">PROSPEX TACTICAL // TYPE 01</span>
-        <h2 class="text-4xl font-bold tracking-wide mb-3 font-serif-premium">CHRONO TACTICAL</h2>
-        <p class="text-sm text-white/70 mb-4">STEALTH SERIES. ELITE BLACKOUT.</p>
-        <div class="text-xl font-semibold tracking-wider mb-6">$249</div>
-        <p class="text-xs leading-relaxed text-white/60 mb-8">Engineered for complete stealth operations. A dark matte silhouette meets rugged reliability, ensuring ultra-high readability in tactical situations.</p>
-        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mb-8 text-[10px] tracking-[1px] text-white/50">
-          <div class="space-y-1"><p>MATERIAL: BLACKOUT MATTE POLYMER</p><p>CRYSTAL: HARDENED MINERAL GLASS</p></div>
-          <div class="space-y-1"><p>MOVEMENT: HIGH-PRECISION QUARTZ</p><p>WATER RESISTANCE: 10 BAR / 100M</p></div>
-        </div>
-        <button onclick="addToBag('CHRONO TACTICAL', '$249')" class="px-8 py-3 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-transparent border border-white/20 text-white transition-all duration-300 hover:bg-[#4a5d85] hover:text-white active:scale-95">ADD TO CART</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-alpinist" class="min-h-screen flex items-center pt-24 px-8 md:px-[8%] bg-radial-alpinist animate-fade-in hidden relative">
-    <button onclick="switchPage('home')" class="absolute top-28 left-8 md:left-[8%] text-xs tracking-[2px] text-white/50 hover:text-white transition-colors">← BACK TO COLLECTION</button>
-    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
-      <div class="flex justify-center w-full max-w-md aspect-square bg-black/20 rounded-3xl border border-white/5 items-center justify-self-center"><span class="text-white/30 text-xs tracking-widest">[ ALPINIST PRO ASSET ]</span></div>
-      <div>
-        <span class="text-[10px] tracking-[4px] text-white/50 block mb-2 uppercase">PROSPEX EXPLORATION // TYPE 02</span>
-        <h2 class="text-4xl font-bold tracking-wide mb-3 font-serif-premium">ALPINIST CHRONO</h2>
-        <p class="text-sm text-white/70 mb-4">CONQUER THE SUMMIT. MASTER THE COLD.</p>
-        <div class="text-xl font-semibold tracking-wider mb-6">$299</div>
-        <p class="text-xs leading-relaxed text-white/60 mb-8">Built to endure alpine mountain climates. Features premium casing architectural layers with functional sub-registers and emergency compass tracks.</p>
-        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mb-8 text-[10px] tracking-[1px] text-white/50">
-          <div class="space-y-1"><p>MATERIAL: SCRATCH PLATINUM</p><p>CRYSTAL: ANTI-REFLECTIVE SAPPHIRE</p></div>
-          <div class="space-y-1"><p>MOVEMENT: CALIBRE 6R35 AUTOMATIC</p><p>WATER RESISTANCE: 20 BAR / 200M</p></div>
-        </div>
-        <button onclick="addToBag('ALPINIST CHRONO', '$299')" class="px-8 py-3 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-transparent border border-white/20 text-white transition-all duration-300 hover:bg-[#96C2DB] hover:text-[#061221] active:scale-95">ADD TO CART</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-heritage" class="min-h-screen flex items-center pt-24 px-8 md:px-[8%] bg-radial-heritage animate-fade-in hidden relative">
-    <button onclick="switchPage('home')" class="absolute top-28 left-8 md:left-[8%] text-xs tracking-[2px] text-white/50 hover:text-white transition-colors">← BACK TO COLLECTION</button>
-    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
-      <div class="flex justify-center w-full max-w-md aspect-square bg-black/20 rounded-3xl border border-white/5 items-center justify-self-center"><span class="text-white/30 text-xs tracking-widest">[ HERITAGE PRO ASSET ]</span></div>
-      <div>
-        <span class="text-[10px] tracking-[4px] text-white/50 block mb-2 uppercase">MUSEUM LEGACY // TYPE 03</span>
-        <h2 class="text-4xl font-bold tracking-wide mb-3 font-serif-premium">ROYAL HERITAGE</h2>
-        <p class="text-sm text-white/70 mb-4">TIMELESS MAJESTY. CARVED IN TRADITION.</p>
-        <div class="text-xl font-semibold tracking-wider mb-6">$349</div>
-        <p class="text-xs leading-relaxed text-white/60 mb-8">A breathtaking luxury tribute to standard traditional horology. Features micro-layered exhibition backings and velvet epsom straps.</p>
-        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mb-8 text-[10px] tracking-[1px] text-white/50">
-          <div class="space-y-1"><p>MATERIAL: 18K ROSE GOLD & STEEL</p><p>DIAL: CERAMIC MULTI-LAYER</p></div>
-          <div class="space-y-1"><p>MOVEMENT: SWISS COLUMN WHEEL</p><p>STRAP: EPSOM PREMIUM LEATHER</p></div>
-        </div>
-        <button onclick="addToBag('ROYAL HERITAGE', '$349')" class="px-8 py-3 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-transparent border border-white/20 text-white transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#05070b] active:scale-95">ADD TO CART</button>
-      </div>
-    </div>
-  </div>
-
-  <section id="contact-section" class="bg-black/40 border-t border-white/5 py-24 px-8 mt-12">
-    <div class="max-w-xl mx-auto text-center">
-      <h2 class="text-2xl font-light tracking-[3px] mb-4 font-serif-premium">CONNECT WITH THE LAB</h2>
-      <p class="text-xs text-white/50 tracking-wide mb-8 leading-relaxed">Subscribe for exclusive priority access to limited edition drops, design files, and technical engineering insights.</p>
-      <form onsubmit="event.preventDefault(); alert('Subscribed successfully!');" class="flex flex-col sm:flex-row gap-3 justify-center">
-        <input type="email" required placeholder="ENTER YOUR EMAIL ADDRESS..." class="w-full sm:max-w-xs px-4 py-3 rounded-lg border border-white/10 bg-transparent text-xs tracking-wider text-white focus:border-white/40 transition-colors">
-        <button type="submit" class="px-6 py-3 rounded-lg bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-white/90 transition-transform active:scale-95">SUBMIT →</button>
-      </form>
-    </div>
-  </section>
-
-  <footer class="bg-black border-t border-white/10 py-12 px-8">
-    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
-      <div>
-        <div class="text-xs tracking-[6px] font-bold text-white/70 mb-2">C H R O N O &nbsp; L A B S</div>
-        <p class="text-[10px] text-white/40 tracking-wider">© 2026 Chrono Labs. All rights reserved.</p>
-      </div>
-      <div class="flex gap-6 text-[10px] tracking-[2px] text-white/40">
-        <button onclick="switchPage('home')" class="hover:text-white transition-colors uppercase">Collections</button>
-        <a href="#" class="hover:text-white transition-colors uppercase">Privacy</a>
-        <a href="#" class="hover:text-white transition-colors uppercase">Terms</a>
-      </div>
-    </div>
-  </footer>
-
-  <div id="cart-drawer-container" class="fixed inset-0 z-50 invisible transition-all duration-300">
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="toggleCart(false)"></div>
-    <div id="cart-panel" class="absolute top-0 right-0 w-full max-w-[420px] h-full bg-[#0a0a0c]/90 backdrop-blur-[25px] border-l border-white/10 p-10 flex flex-col translate-x-full transition-transform duration-300">
-      <div class="flex justify-between items-center mb-10">
-        <span class="text-[10px] tracking-[2px] text-white/50 uppercase">YOUR BAG // ITEMS</span>
-        <button onclick="toggleCart(false)" class="text-white/40 hover:text-white text-lg">✕</button>
-      </div>
-      <div id="cart-content-target" class="text-white/30 text-xs tracking-wider text-center py-12">Your shopping bag is completely empty.</div>
-      <div class="mt-auto border-t border-white/10 pt-6">
-        <div class="flex justify-between items-center mb-6">
-          <span class="text-[11px] tracking-wider text-white/50">SUBTOTAL</span>
-          <span id="cart-total-price" class="text-lg font-bold tracking-widest">$0</span>
-        </div>
-        <button onclick="alert('Proceeding to secure transaction gate...')" class="w-full py-4 rounded-full bg-white text-black font-semibold text-xs tracking-[2px] uppercase hover:bg-white/90 transition-transform active:scale-95">PROCEED TO CHECKOUT</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let currentCartItem = null;
-
-    function switchPage(pageId) {
-      // Hide all content blocks
-      document.getElementById('page-home').classList.add('hidden');
-      document.getElementById('page-stealth').classList.add('hidden');
-      document.getElementById('page-alpinist').classList.add('hidden');
-      document.getElementById('page-heritage').classList.add('hidden');
-      
-      // Reveal targeted frame
-      document.getElementById('page-' + pageId).classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function toggleCart(isOpen) {
-      const container = document.getElementById('cart-drawer-container');
-      const panel = document.getElementById('cart-panel');
-      const backdrop = container.querySelector('.bg-black\\/60');
-      
-      if (isOpen) {
-        container.classList.remove('invisible');
-        setTimeout(() => {
-          panel.classList.remove('translate-x-full');
-          backdrop.classList.remove('opacity-0');
-        }, 10);
-      } else {
-        panel.classList.add('translate-x-full');
-        backdrop.classList.add('opacity-0');
-        setTimeout(() => {
-          container.classList.add('invisible');
-        }, 300);
-      }
-    }
-
-    function addToBag(name, price) {
-      currentCartItem = { name, price };
-      document.getElementById('cart-count').innerText = "1";
-      document.getElementById('cart-total-price').innerText = price;
-      
-      document.getElementById('cart-content-target').innerHTML = `
-        <div class="flex items-center gap-4 bg-white/[0.02] p-4 rounded-xl border border-white/5 text-left animate-fade-in">
-          <div class="w-16 h-16 bg-[#15191e] rounded flex items-center justify-center text-[9px] text-white/30 text-center border border-white/5">WATCH ASSET</div>
-          <div class="flex-1">
-            <h4 class="text-xs font-semibold text-white tracking-wide">${name}</h4>
-            <p class="text-[10px] text-white/40 mt-1">QTY: 1</p>
-          </div>
-          <div class="text-xs font-bold tracking-wider">${price}</div>
-        </div>
-      `;
-      toggleCart(true);
-    }
-
-    function scrollToContact() {
-      document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
-    }
+    // Inject our React structure cleanly straight into the page DOM target
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<HeaderState />);
   </script>
 </body>
 </html>
