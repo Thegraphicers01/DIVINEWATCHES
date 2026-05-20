@@ -1,103 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR BURQA & ABAYA HOUSE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divine Watches | Premium Horology Labs</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+    :root {
+      --variable-collection-burgundy: rgba(87, 2, 40, 1);
+      --variable-collection-deep-blue: rgba(6, 18, 33, 1);
+      --variable-collection-glass-blue: rgba(221, 232, 237, 1);
+      --variable-collection-LIGHT-CREAM: rgba(255, 219, 209, 1);
+      --variable-collection-light-pink: rgba(250, 158, 188, 1);
+      --variable-collection-OFF-WHITE: rgba(248, 243, 234, 1);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020813;
+      color: #ffffff;
+    }
+
+    .font-serif-premium {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Custom Figma Radial Backdrops */
+    .bg-radial-stealth { background: radial-gradient(circle at center, #0a192f 0%, #020813 100%); }
+    .bg-radial-alpinist { background: radial-gradient(circle at center, #1b2d3c 0%, #091118 100%); }
+    .bg-radial-heritage { background: radial-gradient(circle at center, #111625 0%, #05070b 100%); }
+
+    /* Animation CSS Keyframes provided from your extraction */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: none; }
+    }
+    .animate-fade-in { animation: fadeIn 0.6s ease forwards; }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#061221',
+            glassBlue: '#DDE8ED',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    <header class="main-header">
-        <div class="brand-logo">AR BURQA & ABAYA HOUSE</div>
-        <nav class="navigation-tabs">
-            <button class="tab-link active" onclick="switchTab('home-section')">HOME</button>
-            <button class="tab-link" onclick="switchTab('collections-section')">COLLECTIONS</button>
-            <button class="tab-link" onclick="switchTab('cart-section')">CART (<span id="cart-count">0</span>)</button>
-            <button class="tab-link" onclick="switchTab('contact-section')">CONTACT US</button>
-        </nav>
-    </header>
+  <nav class="fixed top-0 left-0 w-full z-40 bg-[#020813]/80 backdrop-blur-md border-b border-white/5 px-8 py-4 flex justify-between items-center">
+    <div class="text-xl font-bold tracking-[4px] cursor-pointer" onclick="switchPage('home')">
+      DIVINE WATCHES
+    </div>
+    <div class="flex gap-8 text-xs tracking-widest text-white/60">
+      <button onclick="switchPage('home')" class="hover:text-white transition-colors uppercase">Collections</button>
+      <button onclick="scrollToContact()" class="hover:text-white transition-colors uppercase">Contact Us</button>
+    </div>
+    <button onclick="toggleCart(true)" class="relative p-2 hover:text-white/80 transition-colors text-xs tracking-widest uppercase">
+      BAG (<span id="cart-count">0</span>)
+    </button>
+  </nav>
 
-    <section id="home-section" class="tab-content active-content">
-        <div class="hero-wrapper">
-            <div class="color-wave-bg">
-                <div class="fluid-wave plum-wave"></div>
-                <div class="fluid-wave pink-wave"></div>
-                <div class="fluid-wave cream-wave"></div>
-            </div>
+  <div id="page-home" class="pt-24 animate-fade-in block">
+    <div class="relative w-full h-[35vh] flex items-center justify-center bg-brandBlue overflow-hidden border-b border-white/5">
+      <h1 class="opacity-10 font-bold text-glassBlue text-5xl md:text-8xl tracking-[12px] select-none text-center font-serif-premium">
+        DIVINE WATCHES
+      </h1>
+    </div>
 
-            <div class="split-hero-container">
-                <div class="left-photo-column">
-                    <div class="square-rounded-frame animate-slide-up">
-                        <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?q=80&w=800" alt="Featured Abaya Lookbook" class="hero-display-img">
-                    </div>
-                </div>
-                
-                <div class="right-details-column animate-text-fade">
-                    <span class="sub-tag">SEASONAL EXCLUSIVE</span>
-                    <h1 class="hero-title">MODERN BLENDS,<br>PURE TRADITION.</h1>
-                    <p class="hero-text">Experience premium drapes, lightweight luxury breathable fabrics, and couture finishings tailored uniquely for your daily elegance.</p>
-                    
-                    <button class="action-btn magnetic-element" onclick="addToCart('Royal Velvet Abaya')">
-                        <span class="btn-text">ADD TO CART</span>
-                        <div class="liquid-fill"></div>
-                    </button>
-                </div>
-            </div>
+    <section class="max-w-[1440px] mx-auto px-8 py-20">
+      <div class="mb-12">
+        <span class="text-xs tracking-[4px] text-white/40 block mb-2">CURATED RELEASES</span>
+        <h2 class="text-3xl font-light tracking-[2px] font-serif-premium">THE 2026 CHRONO LINEUP</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div onclick="switchPage('stealth')" class="bg-white/[0.02] border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer group">
+          <div class="w-full h-64 bg-black/20 rounded-xl mb-6 flex items-center justify-center border border-white/5">
+            <span class="text-white/20 group-hover:scale-105 transition-transform duration-300 text-xs tracking-widest">[ CASIO STEALTH IMAGE ]</span>
+          </div>
+          <span class="text-[10px] tracking-[2px] text-white/40 block mb-1 uppercase">PROSPEX TACTICAL // TYPE 01</span>
+          <h3 class="text-lg font-semibold tracking-wide mb-2">CHRONO TACTICAL</h3>
+          <p class="text-xs text-white/50 mb-4 line-clamp-1">STEALTH SERIES. ELITE BLACKOUT.</p>
+          <span class="text-sm font-bold tracking-wider">$249</span>
         </div>
-    </section>
 
-    <section id="collections-section" class="tab-content">
-        <div class="section-padding">
-            <h2 class="class-headline">PREMIUM ABAYAS</h2>
-            <div class="category-grid">
-                {% for item in catalog.premium_abayas %}
-                <div class="collection-card animate-scroll">
-                    <div class="card-image-box">
-                        <img src="{{ item.img }}" alt="{{ item.name }}">
-                    </div>
-                    <h3>{{ item.name }}</h3>
-                    <p class="card-price">{{ item.price }}</p>
-                    <button class="mini-card-btn magnetic-element" onclick="addToCart('{{ item.name }}')">ADD TO CART</button>
-                </div>
-                {% endfor %}
-            </div>
-
-            <h2 class="class-headline" style="margin-top: 80px;">LUXURY BURQAS</h2>
-            <div class="category-grid">
-                {% for item in catalog.luxury_burqas %}
-                <div class="collection-card animate-scroll">
-                    <div class="card-image-box">
-                        <img src="{{ item.img }}" alt="{{ item.name }}">
-                    </div>
-                    <h3>{{ item.name }}</h3>
-                    <p class="card-price">{{ item.price }}</p>
-                    <button class="mini-card-btn magnetic-element" onclick="addToCart('{{ item.name }}')">ADD TO CART</button>
-                </div>
-                {% endfor %}
-            </div>
+        <div onclick="switchPage('alpinist')" class="bg-white/[0.02] border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer group">
+          <div class="w-full h-64 bg-black/20 rounded-xl mb-6 flex items-center justify-center border border-white/5">
+            <span class="text-white/20 group-hover:scale-105 transition-transform duration-300 text-xs tracking-widest">[ ALPINIST CHRONO IMAGE ]</span>
+          </div>
+          <span class="text-[10px] tracking-[2px] text-white/40 block mb-1 uppercase">PROSPEX EXPLORATION // TYPE 02</span>
+          <h3 class="text-lg font-semibold tracking-wide mb-2">ALPINIST CHRONO</h3>
+          <p class="text-xs text-white/50 mb-4 line-clamp-1">CONQUER THE SUMMIT. MASTER THE COLD.</p>
+          <span class="text-sm font-bold tracking-wider">$299</span>
         </div>
-    </section>
 
-    <section id="cart-section" class="tab-content">
-        <div class="section-padding empty-state">
-            <h2 class="class-headline">YOUR SHOPPING BAG</h2>
-            <p id="cart-status-text">Your cart is currently empty. Items you add will appear here securely.</p>
+        <div onclick="switchPage('heritage')" class="bg-white/[0.02] border border-white/10 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer group">
+          <div class="w-full h-64 bg-black/20 rounded-xl mb-6 flex items-center justify-center border border-white/5">
+            <span class="text-white/20 group-hover:scale-105 transition-transform duration-300 text-xs tracking-widest">[ ROYAL HERITAGE IMAGE ]</span>
+          </div>
+          <span class="text-[10px] tracking-[2px] text-white/40 block mb-1 uppercase">MUSEUM LEGACY // TYPE 03</span>
+          <h3 class="text-lg font-semibold tracking-wide mb-2">ROYAL HERITAGE</h3>
+          <p class="text-xs text-white/50 mb-4 line-clamp-1">TIMELESS MAJESTY. CARVED IN TRADITION.</p>
+          <span class="text-sm font-bold tracking-wider">$349</span>
         </div>
+      </div>
     </section>
+  </div>
 
-    <section id="contact-section" class="tab-content">
-        <div class="section-padding contact-wrapper">
-            <h2 class="class-headline">VISIT OUR HOUSE</h2>
-            <p>AR BURQA & ABAYA HOUSE</p>
-            <p class="contact-details">Premium Wholesale & Retail Fabric Hub<br>Email: contact@arhouse.com</p>
+  <div id="page-stealth" class="min-h-screen flex items-center pt-24 px-8 md:px-[8%] bg-radial-stealth animate-fade-in hidden relative">
+    <button onclick="switchPage('home')" class="absolute top-28 left-8 md:left-[8%] text-xs tracking-[2px] text-white/50 hover:text-white transition-colors">← BACK TO COLLECTION</button>
+    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
+      <div class="flex justify-center w-full max-w-md aspect-square bg-black/20 rounded-3xl border border-white/5 items-center justify-self-center"><span class="text-white/30 text-xs tracking-widest">[ STEALTH PRO ASSET ]</span></div>
+      <div>
+        <span class="text-[10px] tracking-[4px] text-white/50 block mb-2 uppercase">PROSPEX TACTICAL // TYPE 01</span>
+        <h2 class="text-4xl font-bold tracking-wide mb-3 font-serif-premium">CHRONO TACTICAL</h2>
+        <p class="text-sm text-white/70 mb-4">STEALTH SERIES. ELITE BLACKOUT.</p>
+        <div class="text-xl font-semibold tracking-wider mb-6">$249</div>
+        <p class="text-xs leading-relaxed text-white/60 mb-8">Engineered for complete stealth operations. A dark matte silhouette meets rugged reliability, ensuring ultra-high readability in tactical situations.</p>
+        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mb-8 text-[10px] tracking-[1px] text-white/50">
+          <div class="space-y-1"><p>MATERIAL: BLACKOUT MATTE POLYMER</p><p>CRYSTAL: HARDENED MINERAL GLASS</p></div>
+          <div class="space-y-1"><p>MOVEMENT: HIGH-PRECISION QUARTZ</p><p>WATER RESISTANCE: 10 BAR / 100M</p></div>
         </div>
-    </section>
+        <button onclick="addToBag('CHRONO TACTICAL', '$249')" class="px-8 py-3 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-transparent border border-white/20 text-white transition-all duration-300 hover:bg-[#4a5d85] hover:text-white active:scale-95">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
 
-    <div id="toast-notification" class="toast-popup">Item added to cart</div>
+  <div id="page-alpinist" class="min-h-screen flex items-center pt-24 px-8 md:px-[8%] bg-radial-alpinist animate-fade-in hidden relative">
+    <button onclick="switchPage('home')" class="absolute top-28 left-8 md:left-[8%] text-xs tracking-[2px] text-white/50 hover:text-white transition-colors">← BACK TO COLLECTION</button>
+    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
+      <div class="flex justify-center w-full max-w-md aspect-square bg-black/20 rounded-3xl border border-white/5 items-center justify-self-center"><span class="text-white/30 text-xs tracking-widest">[ ALPINIST PRO ASSET ]</span></div>
+      <div>
+        <span class="text-[10px] tracking-[4px] text-white/50 block mb-2 uppercase">PROSPEX EXPLORATION // TYPE 02</span>
+        <h2 class="text-4xl font-bold tracking-wide mb-3 font-serif-premium">ALPINIST CHRONO</h2>
+        <p class="text-sm text-white/70 mb-4">CONQUER THE SUMMIT. MASTER THE COLD.</p>
+        <div class="text-xl font-semibold tracking-wider mb-6">$299</div>
+        <p class="text-xs leading-relaxed text-white/60 mb-8">Built to endure alpine mountain climates. Features premium casing architectural layers with functional sub-registers and emergency compass tracks.</p>
+        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mb-8 text-[10px] tracking-[1px] text-white/50">
+          <div class="space-y-1"><p>MATERIAL: SCRATCH PLATINUM</p><p>CRYSTAL: ANTI-REFLECTIVE SAPPHIRE</p></div>
+          <div class="space-y-1"><p>MOVEMENT: CALIBRE 6R35 AUTOMATIC</p><p>WATER RESISTANCE: 20 BAR / 200M</p></div>
+        </div>
+        <button onclick="addToBag('ALPINIST CHRONO', '$299')" class="px-8 py-3 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-transparent border border-white/20 text-white transition-all duration-300 hover:bg-[#96C2DB] hover:text-[#061221] active:scale-95">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <div id="page-heritage" class="min-h-screen flex items-center pt-24 px-8 md:px-[8%] bg-radial-heritage animate-fade-in hidden relative">
+    <button onclick="switchPage('home')" class="absolute top-28 left-8 md:left-[8%] text-xs tracking-[2px] text-white/50 hover:text-white transition-colors">← BACK TO COLLECTION</button>
+    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
+      <div class="flex justify-center w-full max-w-md aspect-square bg-black/20 rounded-3xl border border-white/5 items-center justify-self-center"><span class="text-white/30 text-xs tracking-widest">[ HERITAGE PRO ASSET ]</span></div>
+      <div>
+        <span class="text-[10px] tracking-[4px] text-white/50 block mb-2 uppercase">MUSEUM LEGACY // TYPE 03</span>
+        <h2 class="text-4xl font-bold tracking-wide mb-3 font-serif-premium">ROYAL HERITAGE</h2>
+        <p class="text-sm text-white/70 mb-4">TIMELESS MAJESTY. CARVED IN TRADITION.</p>
+        <div class="text-xl font-semibold tracking-wider mb-6">$349</div>
+        <p class="text-xs leading-relaxed text-white/60 mb-8">A breathtaking luxury tribute to standard traditional horology. Features micro-layered exhibition backings and velvet epsom straps.</p>
+        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mb-8 text-[10px] tracking-[1px] text-white/50">
+          <div class="space-y-1"><p>MATERIAL: 18K ROSE GOLD & STEEL</p><p>DIAL: CERAMIC MULTI-LAYER</p></div>
+          <div class="space-y-1"><p>MOVEMENT: SWISS COLUMN WHEEL</p><p>STRAP: EPSOM PREMIUM LEATHER</p></div>
+        </div>
+        <button onclick="addToBag('ROYAL HERITAGE', '$349')" class="px-8 py-3 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-transparent border border-white/20 text-white transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#05070b] active:scale-95">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="contact-section" class="bg-black/40 border-t border-white/5 py-24 px-8 mt-12">
+    <div class="max-w-xl mx-auto text-center">
+      <h2 class="text-2xl font-light tracking-[3px] mb-4 font-serif-premium">CONNECT WITH THE LAB</h2>
+      <p class="text-xs text-white/50 tracking-wide mb-8 leading-relaxed">Subscribe for exclusive priority access to limited edition drops, design files, and technical engineering insights.</p>
+      <form onsubmit="event.preventDefault(); alert('Subscribed successfully!');" class="flex flex-col sm:flex-row gap-3 justify-center">
+        <input type="email" required placeholder="ENTER YOUR EMAIL ADDRESS..." class="w-full sm:max-w-xs px-4 py-3 rounded-lg border border-white/10 bg-transparent text-xs tracking-wider text-white focus:border-white/40 transition-colors">
+        <button type="submit" class="px-6 py-3 rounded-lg bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-white/90 transition-transform active:scale-95">SUBMIT →</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="bg-black border-t border-white/10 py-12 px-8">
+    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div>
+        <div class="text-xs tracking-[6px] font-bold text-white/70 mb-2">C H R O N O &nbsp; L A B S</div>
+        <p class="text-[10px] text-white/40 tracking-wider">© 2026 Chrono Labs. All rights reserved.</p>
+      </div>
+      <div class="flex gap-6 text-[10px] tracking-[2px] text-white/40">
+        <button onclick="switchPage('home')" class="hover:text-white transition-colors uppercase">Collections</button>
+        <a href="#" class="hover:text-white transition-colors uppercase">Privacy</a>
+        <a href="#" class="hover:text-white transition-colors uppercase">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cart-drawer-container" class="fixed inset-0 z-50 invisible transition-all duration-300">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="toggleCart(false)"></div>
+    <div id="cart-panel" class="absolute top-0 right-0 w-full max-w-[420px] h-full bg-[#0a0a0c]/90 backdrop-blur-[25px] border-l border-white/10 p-10 flex flex-col translate-x-full transition-transform duration-300">
+      <div class="flex justify-between items-center mb-10">
+        <span class="text-[10px] tracking-[2px] text-white/50 uppercase">YOUR BAG // ITEMS</span>
+        <button onclick="toggleCart(false)" class="text-white/40 hover:text-white text-lg">✕</button>
+      </div>
+      <div id="cart-content-target" class="text-white/30 text-xs tracking-wider text-center py-12">Your shopping bag is completely empty.</div>
+      <div class="mt-auto border-t border-white/10 pt-6">
+        <div class="flex justify-between items-center mb-6">
+          <span class="text-[11px] tracking-wider text-white/50">SUBTOTAL</span>
+          <span id="cart-total-price" class="text-lg font-bold tracking-widest">$0</span>
+        </div>
+        <button onclick="alert('Proceeding to secure transaction gate...')" class="w-full py-4 rounded-full bg-white text-black font-semibold text-xs tracking-[2px] uppercase hover:bg-white/90 transition-transform active:scale-95">PROCEED TO CHECKOUT</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentCartItem = null;
+
+    function switchPage(pageId) {
+      // Hide all content blocks
+      document.getElementById('page-home').classList.add('hidden');
+      document.getElementById('page-stealth').classList.add('hidden');
+      document.getElementById('page-alpinist').classList.add('hidden');
+      document.getElementById('page-heritage').classList.add('hidden');
+      
+      // Reveal targeted frame
+      document.getElementById('page-' + pageId).classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleCart(isOpen) {
+      const container = document.getElementById('cart-drawer-container');
+      const panel = document.getElementById('cart-panel');
+      const backdrop = container.querySelector('.bg-black\\/60');
+      
+      if (isOpen) {
+        container.classList.remove('invisible');
+        setTimeout(() => {
+          panel.classList.remove('translate-x-full');
+          backdrop.classList.remove('opacity-0');
+        }, 10);
+      } else {
+        panel.classList.add('translate-x-full');
+        backdrop.classList.add('opacity-0');
+        setTimeout(() => {
+          container.classList.add('invisible');
+        }, 300);
+      }
+    }
+
+    function addToBag(name, price) {
+      currentCartItem = { name, price };
+      document.getElementById('cart-count').innerText = "1";
+      document.getElementById('cart-total-price').innerText = price;
+      
+      document.getElementById('cart-content-target').innerHTML = `
+        <div class="flex items-center gap-4 bg-white/[0.02] p-4 rounded-xl border border-white/5 text-left animate-fade-in">
+          <div class="w-16 h-16 bg-[#15191e] rounded flex items-center justify-center text-[9px] text-white/30 text-center border border-white/5">WATCH ASSET</div>
+          <div class="flex-1">
+            <h4 class="text-xs font-semibold text-white tracking-wide">${name}</h4>
+            <p class="text-[10px] text-white/40 mt-1">QTY: 1</p>
+          </div>
+          <div class="text-xs font-bold tracking-wider">${price}</div>
+        </div>
+      `;
+      toggleCart(true);
+    }
+
+    function scrollToContact() {
+      document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
