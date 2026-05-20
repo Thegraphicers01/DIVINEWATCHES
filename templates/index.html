@@ -5,82 +5,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Divine Watches | Premium Horology Labs</title>
   
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&display=swap">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#020813] overflow-x-hidden">
+<body class="bg-[#020813] text-white overflow-x-hidden">
 
-  <div id="root"></div>
-
-  <script type="text/babel">
-    const HeaderState = () => {
-      const panels = [
-        { className: "top-0 left-[-166px] w-[699px] h-[900px] absolute bg-[#061221]", "aria-hidden": true },
-        { className: "-top-px left-[803px] w-[741px] h-[927px] absolute bg-[#061221]", "aria-hidden": true }
-      ];
-
-      const scrollToContact = (e) => {
-        e.preventDefault();
-        document.getElementById('contact-target-section')?.scrollIntoView({ behavior: 'smooth' });
-      };
-
-      return (
-        <div className="text-white min-h-screen selection:bg-white/20">
+  <div id="app-root" class="min-h-screen relative">
+    
+    <div id="state-intro" class="block animate-fade-in">
+      <main class="bg-white overflow-hidden w-full min-w-[1440px] min-h-[900px] relative mx-auto">
+        <section aria-label="Divine Watches header background" class="relative w-full min-h-[900px]">
           
-          {/* FIGMA CORE NAVIGATION HEADER PANEL */}
-          <main className="bg-white overflow-hidden w-full min-w-[1440px] min-h-[900px] relative mx-auto">
-            <section aria-label="Divine Watches header background" className="relative w-full min-h-[900px]">
-              {panels.map((panel, index) => (
-                <div key={index} aria-hidden={panel["aria-hidden"]} className={panel.className} />
-              ))}
+          <div class="top-0 left-[-166px] w-[699px] h-[900px] absolute bg-[#061221]"></div>
+          <div class="-top-px left-[803px] w-[741px] h-[927px] absolute bg-[#061221]"></div>
 
-              <h1 className="absolute top-[calc(50.00%_-_76px)] left-[calc(50.00%_-_345px)] h-[86px] flex items-center justify-center opacity-10 font-bold text-[64px] text-center tracking-[4px] whitespace-nowrap text-white">
-                DIVINE WATCHES
-              </h1>
-            </section>
-          </main>
+          <h1 onclick="revealComponents()" class="absolute top-[calc(50.00%_-_76px)] left-[calc(50.00%_-_345px)] h-[86px] flex items-center justify-center opacity-10 cursor-pointer font-bold text-[64px] text-center tracking-[4px] whitespace-nowrap text-white [font-family:'Cinzel-Bold',Helvetica,serif]">
+            DIVINE WATCHES
+          </h1>
+          
+          <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center z-20">
+            <button onclick="revealComponents()" class="px-8 py-3 bg-white text-[#061221] font-bold text-xs tracking-[4px] uppercase border border-white hover:bg-transparent hover:text-white transition-all duration-300">
+              ENTER PRESENTATION MODE →
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
 
-          {/* ADDED CONTACT INTERFACE */}
-          <section id="contact-target-section" className="w-full bg-[#061221] border-t border-white/10 py-24 px-8 relative z-10">
-            <div className="max-w-xl mx-auto text-center">
-              <h2 class="text-3xl font-light tracking-[3px] uppercase mb-4 text-white">CONNECT WITH THE LAB</h2>
-              <p className="text-sm text-white/60 tracking-wide mb-8 leading-relaxed">
-                Subscribe for exclusive priority access to upcoming limited edition drops and tactical engineering insights.
-              </p>
-              <form onSubmit={(e) => { e.preventDefault(); alert('Transmission Received.'); }} className="flex flex-col sm:flex-row gap-3 items-center justify-center">
-                <input type="email" required placeholder="ENTER YOUR EMAIL..." className="w-full sm:max-w-xs px-5 py-3 border border-white/20 bg-transparent text-xs tracking-wider text-white uppercase outline-none focus:border-white/60" />
-                <button type="submit" className="w-full sm:w-auto px-8 py-3 bg-white text-[#061221] font-bold text-xs tracking-widest uppercase border border-white hover:bg-transparent hover:text-white transition-all duration-300 active:scale-95">SUBMIT →</button>
-              </form>
-            </div>
-          </section>
+    <div id="state-components" class="hidden animate-fade-up px-8 py-20 max-w-[1440px] mx-auto">
+      <button onclick="goBackToIntro()" class="text-xs tracking-[2px] text-white/50 hover:text-white mb-12 block">← BACK TO INTRO SCREEN</button>
+      
+      <div class="mb-12">
+        <span class="text-xs tracking-[4px] text-white/40 block mb-2 uppercase">Core System UI Components</span>
+        <h2 class="text-3xl font-light tracking-[2px] [font-family:'Cinzel-Bold',Helvetica,serif]">EXTRACTED FIGMA LAYERS</h2>
+      </div>
 
-          {/* ADDED FOOTER */}
-          <footer className="w-full bg-[#020813] border-t border-white/5 py-12 px-8 relative z-10">
-            <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-              <div>
-                <div className="text-xs tracking-[6px] font-bold text-white/80 mb-2 uppercase">DIVINE WATCHES // LABS</div>
-                <p className="text-[10px] text-white/40 tracking-wider uppercase">© 2026 Chrono Labs. All structural properties reserved.</p>
-              </div>
-              <div className="flex flex-wrap gap-8 text-[10px] tracking-[2px] text-white/40 uppercase">
-                <a href="#contact" onClick={scrollToContact} className="hover:text-white transition-colors">CONTACT US</a>
-                <a href="#privacy" className="hover:text-white transition-colors">PRIVACY REGISTRY</a>
-                <a href="#terms" className="hover:text-white transition-colors">TERMS OF OPERATION</a>
-              </div>
-            </div>
-          </footer>
-
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+        <div class="bg-[#061221] border border-white/10 p-8 rounded-none text-center">
+          <div class="h-64 bg-black/40 border border-white/5 mb-6 flex items-center justify-center text-xs tracking-widest text-white/30">[ CHRONO MODEL ALPHA ]</div>
+          <h3 class="text-lg font-semibold tracking-wide">TACTICAL STEALTH</h3>
         </div>
-      );
-    };
+        <div class="bg-[#061221] border border-white/10 p-8 rounded-none text-center">
+          <div class="h-64 bg-black/40 border border-white/5 mb-6 flex items-center justify-center text-xs tracking-widest text-white/30">[ CHRONO MODEL BETA ]</div>
+          <h3 class="text-lg font-semibold tracking-wide">ALPINIST MASTER</h3>
+        </div>
+        <div class="bg-[#061221] border border-white/10 p-8 rounded-none text-center">
+          <div class="h-64 bg-black/40 border border-white/5 mb-6 flex items-center justify-center text-xs tracking-widest text-white/30">[ CHRONO MODEL GAMMA ]</div>
+          <h3 class="text-lg font-semibold tracking-wide">ROYAL HERITAGE</h3>
+        </div>
+      </div>
+    </div>
 
-    // Inject our React structure cleanly straight into the page DOM target
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<HeaderState />);
+    <section id="contact-target-section" class="w-full bg-[#061221] border-t border-white/10 py-24 px-8 relative z-10">
+      <div class="max-w-xl mx-auto text-center">
+        <h2 class="text-3xl font-light tracking-[3px] uppercase mb-4 text-white [font-family:'Cinzel-Bold',Helvetica,serif]">
+          CONNECT WITH THE LAB
+        </h2>
+        <p class="text-sm text-white/60 tracking-wide mb-8 leading-relaxed">
+          Subscribe for exclusive priority access to upcoming limited edition drops and tactical engineering insights.
+        </p>
+        <form onsubmit="event.preventDefault(); alert('Transmission Received.');" class="flex flex-col sm:flex-row gap-3 items-center justify-center">
+          <input type="email" required placeholder="ENTER YOUR EMAIL ADDRESS..." class="w-full sm:max-w-xs px-5 py-3 border border-white/20 bg-transparent text-xs tracking-wider text-white placeholder-white/30 focus:border-white/60 transition-colors uppercase outline-none" />
+          <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-white text-[#061221] font-bold text-xs tracking-widest uppercase border border-white hover:bg-transparent hover:text-white transition-all duration-300 active:scale-95 whitespace-nowrap">
+            SUBMIT →
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="w-full bg-[#020813] border-t border-white/5 py-12 px-8 relative z-10">
+      <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <div class="text-xs tracking-[6px] font-bold text-white/80 mb-2 uppercase [font-family:'Cinzel-Bold',Helvetica,serif]">
+            DIVINE WATCHES // LABS
+          </div>
+          <p class="text-[10px] text-white/40 tracking-wider uppercase">
+            © 2026 Chrono Labs. All structural properties reserved.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-8 text-[10px] tracking-[2px] text-white/40 uppercase">
+          <button onclick="document.getElementById('contact-target-section').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition-colors">CONTACT US</button>
+          <a href="#privacy" class="hover:text-white transition-colors">PRIVACY REGISTRY</a>
+          <a href="#terms" class="hover:text-white transition-colors">TERMS OF OPERATION</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function revealComponents() {
+      document.getElementById('state-intro').classList.replace('block', 'hidden');
+      document.getElementById('state-components').classList.replace('hidden', 'block');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function goBackToIntro() {
+      document.getElementById('state-components').classList.replace('block', 'hidden');
+      document.getElementById('state-intro').classList.replace('hidden', 'block');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
